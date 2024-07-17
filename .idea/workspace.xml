@@ -4,261 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7d5bf62a-c7cb-475d-ab8d-a4f9f85be113" name="Changes" comment="initial commit">
-      <change afterPath="$PROJECT_DIR$/animations/clear/00000.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/animations/clear/00001.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/animations/clear/00002.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/animations/clear/00003.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/animations/clear/00004.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/animations/clear/00005.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/animations/clear/00006.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/animations/clear/00007.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/animations/clear/00008.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/animations/clear/00009.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/animations/clear/00010.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/animations/clear/00011.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/animations/clear/00012.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/animations/clear/00013.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/animations/clear/00014.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/animations/clear/00015.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/animations/clear/00016.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/animations/clear/00017.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/animations/clear/00018.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/animations/clear/00019.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/animations/clear/00020.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/animations/clear/00021.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/animations/clear/00022.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/animations/clear/00023.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/animations/clear/00024.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/animations/clear/00025.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/animations/clear/00026.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/animations/clear/00027.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/animations/clear/00028.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/animations/clear/00029.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/animations/clear/00030.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/animations/clear/00031.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/animations/clear/00032.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/animations/clear/00033.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/animations/clear/00034.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/animations/clear/00035.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/animations/clear/00036.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/animations/clear/00037.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/animations/clear/00038.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/animations/clear/00039.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/animations/clear/00040.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/animations/clear/00041.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/animations/clear/00042.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/animations/clear/00043.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/animations/clear/00044.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/animations/clear/00045.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/animations/clear/00046.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/animations/clear/00047.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/animations/cloudy/00000.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/animations/cloudy/00001.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/animations/cloudy/00002.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/animations/cloudy/00003.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/animations/cloudy/00004.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/animations/cloudy/00005.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/animations/cloudy/00006.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/animations/cloudy/00007.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/animations/cloudy/00008.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/animations/cloudy/00009.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/animations/cloudy/00010.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/animations/cloudy/00011.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/animations/cloudy/00012.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/animations/cloudy/00013.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/animations/cloudy/00014.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/animations/cloudy/00015.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/animations/cloudy/00016.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/animations/cloudy/00017.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/animations/cloudy/00018.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/animations/cloudy/00019.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/animations/cloudy/00020.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/animations/cloudy/00021.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/animations/cloudy/00022.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/animations/cloudy/00023.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/animations/cloudy/00024.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/animations/cloudy/00025.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/animations/cloudy/00026.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/animations/cloudy/00027.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/animations/cloudy/00028.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/animations/cloudy/00029.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/animations/cloudy/00030.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/animations/cloudy/00031.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/animations/cloudy/00032.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/animations/cloudy/00033.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/animations/cloudy/00034.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/animations/cloudy/00035.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/animations/cloudy/00036.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/animations/cloudy/00037.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/animations/cloudy/00038.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/animations/cloudy/00039.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/animations/cloudy/00040.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/animations/cloudy/00041.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/animations/cloudy/00042.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/animations/cloudy/00043.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/animations/cloudy/00044.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/animations/cloudy/00045.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/animations/cloudy/00046.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/animations/cloudy/00047.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/animations/rain/00000.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/animations/rain/00001.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/animations/rain/00002.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/animations/rain/00003.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/animations/rain/00004.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/animations/rain/00005.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/animations/rain/00006.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/animations/rain/00007.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/animations/rain/00008.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/animations/rain/00009.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/animations/rain/00010.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/animations/rain/00011.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/animations/rain/00012.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/animations/rain/00013.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/animations/rain/00014.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/animations/rain/00015.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/animations/rain/00016.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/animations/rain/00017.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/animations/rain/00018.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/animations/rain/00019.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/animations/rain/00020.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/animations/rain/00021.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/animations/rain/00022.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/animations/rain/00023.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/animations/rain/00024.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/animations/rain/00025.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/animations/rain/00026.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/animations/rain/00027.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/animations/rain/00028.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/animations/rain/00029.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/animations/rain/00030.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/animations/rain/00031.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/animations/rain/00032.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/animations/rain/00033.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/animations/rain/00034.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/animations/rain/00035.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/animations/rain/00036.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/animations/rain/00037.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/animations/rain/00038.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/animations/rain/00039.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/animations/rain/00040.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/animations/rain/00041.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/animations/rain/00042.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/animations/rain/00043.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/animations/rain/00044.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/animations/rain/00045.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/animations/rain/00046.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/animations/rain/00047.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/animations/snow/00000.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/animations/snow/00001.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/animations/snow/00002.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/animations/snow/00003.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/animations/snow/00004.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/animations/snow/00005.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/animations/snow/00006.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/animations/snow/00007.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/animations/snow/00008.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/animations/snow/00009.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/animations/snow/00010.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/animations/snow/00011.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/animations/snow/00012.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/animations/snow/00013.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/animations/snow/00014.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/animations/snow/00015.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/animations/snow/00016.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/animations/snow/00017.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/animations/snow/00018.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/animations/snow/00019.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/animations/snow/00020.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/animations/snow/00021.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/animations/snow/00022.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/animations/snow/00023.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/animations/snow/00024.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/animations/snow/00025.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/animations/snow/00026.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/animations/snow/00027.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/animations/snow/00028.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/animations/snow/00029.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/animations/snow/00030.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/animations/snow/00031.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/animations/snow/00032.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/animations/snow/00033.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/animations/snow/00034.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/animations/snow/00035.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/animations/snow/00036.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/animations/snow/00037.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/animations/snow/00038.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/animations/snow/00039.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/animations/snow/00040.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/animations/snow/00041.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/animations/snow/00042.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/animations/snow/00043.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/animations/snow/00044.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/animations/snow/00045.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/animations/snow/00046.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/animations/snow/00047.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/animations/thunder/00000.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/animations/thunder/00001.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/animations/thunder/00002.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/animations/thunder/00003.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/animations/thunder/00004.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/animations/thunder/00005.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/animations/thunder/00006.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/animations/thunder/00007.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/animations/thunder/00008.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/animations/thunder/00009.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/animations/thunder/00010.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/animations/thunder/00011.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/animations/thunder/00012.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/animations/thunder/00013.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/animations/thunder/00014.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/animations/thunder/00015.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/animations/thunder/00016.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/animations/thunder/00017.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/animations/thunder/00018.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/animations/thunder/00019.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/animations/thunder/00020.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/animations/thunder/00021.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/animations/thunder/00022.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/animations/thunder/00023.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/animations/thunder/00024.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/animations/thunder/00025.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/animations/thunder/00026.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/animations/thunder/00027.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/animations/thunder/00028.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/animations/thunder/00029.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/animations/thunder/00030.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/animations/thunder/00031.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/animations/thunder/00032.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/animations/thunder/00033.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/animations/thunder/00034.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/animations/thunder/00035.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/animations/thunder/00036.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/animations/thunder/00037.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/animations/thunder/00038.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/animations/thunder/00039.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/animations/thunder/00040.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/animations/thunder/00041.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/animations/thunder/00042.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/animations/thunder/00043.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/animations/thunder/00044.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/animations/thunder/00045.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/animations/thunder/00046.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/animations/thunder/00047.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/controller.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/images/Clear.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/images/Clouds.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/images/Mostly_sunny.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/images/Rain.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/images/Snow.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/images/Thunder.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/images/empty.ico" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/model.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/settings.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/view.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/weather_data.py" afterDir="false" />
+    <list default="true" id="7d5bf62a-c7cb-475d-ab8d-a4f9f85be113" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controller.py" beforeDir="false" afterPath="$PROJECT_DIR$/controller.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model.py" beforeDir="false" afterPath="$PROJECT_DIR$/model.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -389,11 +139,20 @@
       <option name="project" value="LOCAL" />
       <updated>1721216694611</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="0.01">
+      <option name="closed" value="true" />
+      <created>1721251482357</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1721251482357</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="initial commit" />
-    <option name="LAST_COMMIT_MESSAGE" value="initial commit" />
+    <MESSAGE value="0.01" />
+    <option name="LAST_COMMIT_MESSAGE" value="0.01" />
   </component>
 </project>

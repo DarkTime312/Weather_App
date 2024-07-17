@@ -1,16 +1,26 @@
 import urllib.request
 import json
 import requests
-from weather_data import _get_geo_info
+from weather_data import _get_geo_info, get_weather_data
 
 
 class WeatherAppModel:
-    def __init__(self, city, country, lat, long):
+    def __init__(self, city, country, lat, long, unit):
+        self.today_date = None
+        self.next_days_data = None
+        self.feels_like = None
+        self.current_temp = None
         self.city = city
         self.country = country
         self.latitude = lat
         self.longitude = long
+        self.unit = unit
+        self.current_forecast = None
+        self.next_5_day_forecast = None
         self.check_data()
+        self.get_weather_info()
+        self.process_today_data()
+        self.process_next_5_days()
 
     def check_data(self):
         # If user did not provide any location, find the location based on ip
@@ -41,4 +51,37 @@ class WeatherAppModel:
         print(self.city, self.country, self.latitude, self.longitude)
 
     def get_weather_info(self):
-        pass
+        data = get_weather_data(latitude=self.latitude,
+                                longitude=self.longitude,
+                                unit=self.unit)
+        self.current_forecast = data.today
+        self.next_5_day_forecast = data.next_5_days
+        print(self.current_forecast, self.next_5_day_forecast)
+
+    def process_today_data(self):
+        self.today_date = self.format_datetime(self.current_forecast.date)
+        self.current_temp: str = f'{round(self.current_forecast.temp)}\N{DEGREE SIGN}'
+        self.feels_like: str = f'{round(self.current_forecast.feels_like)}\N{DEGREE SIGN}'
+        print(self.today_date, self.current_temp, self.feels_like)
+
+    @staticmethod
+    def get_ordinal_suffix(day):
+        if 11 <= day <= 13:
+            return 'th'
+        else:
+            return {1: 'st', 2: 'nd', 3: 'rd'}.get(day % 10, 'th')
+
+    def format_datetime(self, dt):
+        # Get the day and its ordinal suffix
+        day = dt.day
+        suffix = self.get_ordinal_suffix(day)
+        # Format the date string
+        formatted_date = dt.strftime(f'%a, {day}{suffix} %B')
+        return formatted_date
+
+    def process_next_5_days(self):
+        self.next_days_data = [
+            (x.date.strftime('%A'), f'{round(x.temp)}\N{DEGREE SIGN}', x.weather_condition)
+            for x in self.next_5_day_forecast
+        ]
+        print(self.next_days_data)
