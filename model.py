@@ -6,6 +6,7 @@ from weather_data import _get_geo_info, get_weather_data
 
 class WeatherAppModel:
     def __init__(self, city, country, lat, long, unit):
+        self.current_condition = None
         self.today_date = None
         self.next_days_data = None
         self.feels_like = None
@@ -62,6 +63,7 @@ class WeatherAppModel:
         self.today_date = self.format_datetime(self.current_forecast.date)
         self.current_temp: str = f'{round(self.current_forecast.temp)}\N{DEGREE SIGN}'
         self.feels_like: str = f'{round(self.current_forecast.feels_like)}\N{DEGREE SIGN}'
+        self.current_condition = self.current_forecast.weather_condition
         print(self.today_date, self.current_temp, self.feels_like)
 
     @staticmethod
