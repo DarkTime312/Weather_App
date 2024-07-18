@@ -68,17 +68,23 @@ class TodayDateLabel(ctk.CTkLabel):
         super().__init__(master=parent,
                          text_color=text_color,
                          text=text,
-                         font=(FONT, 18)
+                         font=(FONT, 20)
                          )
 
 
 class WeatherAnimationCanvas(ctk.CTkCanvas):
-    def __init__(self, parent, image_path):
+    def __init__(self, parent, image_path, fg_color):
         super().__init__(master=parent,
-                         bg='red')
+                         bg=fg_color)
+        # self.false = None
+        # self.last_dem = None
+        self.resize_after_id = None  # To keep track of the scheduled resize operation
+        self.animate_id = None
+
+
         self.image_path = image_path
-        # self.bind('<Configure>', self.get_canvas_dimensions)
-        self.import_images()
+        self.bind('<Configure>', self.schedule_resize)
+        # self.after(500, self.animate)
 
     def import_images(self):
         # self.img_list = [
@@ -87,20 +93,43 @@ class WeatherAnimationCanvas(ctk.CTkCanvas):
         #     for file in files
         # ]
         self.img_list = [
-            ImageTk.PhotoImage(Image.open(f"{path}\\{file}").resize((150, 150)))
+            ImageTk.PhotoImage(Image.open(f"{path}\\{file}").resize(self.image_size))
             for path, _, files in os.walk(self.image_path)
             for file in files
         ]
         self.iterable_img = cycle(self.img_list)
+        if self.animate_id is not None:
+            self.after_cancel(self.animate_id)
         self.animate()
 
-    # def get_canvas_dimensions(self, event):
-    #     self.import_images()
+    def get_canvas_dimensions(self, event):
+        self.canvas_width = event.width
+        self.canvas_height = event.height
+        image_size = min(self.canvas_width, self.canvas_height)
+        self.image_size = (image_size, image_size)
+        print(self.image_size)
+
+        self.center_x = event.width // 2
+        self.center_y = event.height // 2
+        # if self.false is None or self.canvas_width // 80 != self.last_dem:
+        self.import_images()
+        self.last_dem = self.canvas_width // 80
+        print('Imported images')
+            # self.false = False
+        self.update_idletasks()
+
+    def schedule_resize(self, event):
+        # Cancel any previously scheduled resize operation
+        if self.resize_after_id is not None:
+            self.after_cancel(self.resize_after_id)
+
+        # Schedule a new resize operation to run after 200 milliseconds of inactivity
+        self.resize_after_id = self.after(200, lambda: self.get_canvas_dimensions(event))
 
     def animate(self):
         next_frame = next(self.iterable_img)
         # self.img_tk = ImageTk.PhotoImage(next_frame)
         self.delete('all')
-        self.create_image(0, 0, anchor='nw', image=next_frame)
-        self.update()
-        self.after(50, self.animate)
+        self.create_image(self.center_x, self.center_y, anchor='center', image=next_frame)
+        self.update_idletasks()
+        self.animate_id = self.after(50, self.animate)
