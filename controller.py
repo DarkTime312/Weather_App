@@ -21,3 +21,9 @@ class WeatherAppController:
                                     self.model.feels_like,
                                     WEATHER_DATA[self.model.current_condition]['text']
                                     )
+        self.view.create_location_label(city=self.model.city,
+                                        country=self.model.country,
+                                        text_color=WEATHER_DATA[self.model.current_condition]['text'])
+        self.view.create_date_label(text=self.model.today_date,
+                                    text_color=WEATHER_DATA[self.model.current_condition]['text'])
+        self.view.create_weather_animation_canvas(WEATHER_DATA[self.model.current_condition]['path'])

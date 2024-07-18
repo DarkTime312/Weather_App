@@ -1,5 +1,6 @@
 API_KEY = '288467633cb6e715fc2c24b28a96e742'
 BASE_URL = 'https://api.openweathermap.org/data/2.5/forecast?'
+FONT = 'Calibri'
 
 WEATHER_DATA = {
     'Clear': {'main': '#FFF2D1', 'title': 0x00D1F2FF, 'text': '#bd6a1f', 'divider color': '#f2eddf',

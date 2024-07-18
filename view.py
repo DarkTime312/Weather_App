@@ -5,7 +5,7 @@ except:
 
 import customtkinter as ctk
 from settings import *
-from components import TodayTemp
+from components import TodayTemp, LocationLabel, TodayDateLabel, WeatherAnimationCanvas
 
 
 class WeatherAppView(ctk.CTk):
@@ -28,3 +28,12 @@ class WeatherAppView(ctk.CTk):
 
     def create_today_temp(self, current_temp, feels_temp, text_color):
         TodayTemp(self, current_temp, feels_temp, text_color).pack()
+
+    def create_location_label(self, city, country, text_color):
+        LocationLabel(self, city=city, country=country, text_color=text_color).pack()
+
+    def create_date_label(self, text, text_color):
+        TodayDateLabel(self, text_color=text_color, text=text).pack()
+
+    def create_weather_animation_canvas(self, image_path):
+        WeatherAnimationCanvas(self, image_path).pack()

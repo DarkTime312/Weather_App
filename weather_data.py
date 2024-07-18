@@ -7,6 +7,7 @@ WeatherData = namedtuple('WeatherData', field_names=('date', 'temp', 'weather_co
 ForecastData = namedtuple('ForecastData', field_names=('today', 'next_5_days'))
 LocationData = namedtuple('LocationData', field_names=('country_name', 'city_name', 'latitude', 'longitude'))
 
+
 def _process_weather_data(data: dict, today=None):
     date = datetime.fromisoformat(data['dt_txt'].split(' ')[0])
     temp = data['main']['temp_max']
@@ -69,16 +70,5 @@ def _get_geo_info(city_name):
             raise Exception(f"No results found for {city_name}")
 
     else:
-        # Print an error message if the request was not successful
-        # print(f"Error: Unable to fetch coordinates (status code: {response.status_code})")
+        # raise an error if the request was not successful
         raise Exception(f"Error: Unable to fetch coordinates (status code: {response.status_code})")
-
-    # Example usage
-# CITY_NAME = 'birjand'
-#
-# coordinates = get_coordinates(CITY_NAME)
-# if coordinates:
-#     latitude, longitude = coordinates
-#     print(f"Coordinates of {CITY_NAME}:")
-#     print(f"Latitude: {latitude}")
-#     print(f"Longitude: {longitude}")
