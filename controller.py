@@ -22,10 +22,11 @@ class WeatherAppController:
                                     self.model.feels_like,
                                     WEATHER_DATA[self.model.current_condition]['text']
                                     )
-        self.view.create_location_label(city=self.model.city,
-                                        country=self.model.country,
-                                        text_color=WEATHER_DATA[self.model.current_condition]['text'])
-        self.view.create_date_label(text=self.model.today_date,
-                                    text_color=WEATHER_DATA[self.model.current_condition]['text'])
+        self.view.create_date_location_frame(city=self.model.city,
+                                             country=self.model.country,
+                                             text_color=WEATHER_DATA[self.model.current_condition]['text'],
+                                             date=self.model.today_date)
+        # self.view.create_date_label(text=self.model.today_date,
+        #                             text_color=WEATHER_DATA[self.model.current_condition]['text'])
         self.view.create_weather_animation_canvas(self.model.animation_img_list,
                                                   WEATHER_DATA[self.model.current_condition]['main'])
