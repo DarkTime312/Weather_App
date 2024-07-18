@@ -12,6 +12,7 @@ class WeatherAppController:
         self.small_layout()
         self.view.mainloop()
 
+
     def config_colors(self):
         self.view.change_titlebar_color(self.model.current_condition)
         self.view.configure(fg_color=WEATHER_DATA[self.model.current_condition]['main'])
@@ -26,5 +27,5 @@ class WeatherAppController:
                                         text_color=WEATHER_DATA[self.model.current_condition]['text'])
         self.view.create_date_label(text=self.model.today_date,
                                     text_color=WEATHER_DATA[self.model.current_condition]['text'])
-        self.view.create_weather_animation_canvas(WEATHER_DATA[self.model.current_condition]['path'],
+        self.view.create_weather_animation_canvas(self.model.animation_img_list,
                                                   WEATHER_DATA[self.model.current_condition]['main'])

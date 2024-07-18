@@ -6,6 +6,7 @@ except:
 import customtkinter as ctk
 from settings import *
 from components import TodayTemp, LocationLabel, TodayDateLabel, WeatherAnimationCanvas
+from PIL import Image, ImageTk
 
 
 class WeatherAppView(ctk.CTk):
@@ -43,5 +44,5 @@ class WeatherAppView(ctk.CTk):
     def create_date_label(self, text, text_color):
         TodayDateLabel(self, text_color=text_color, text=text).grid(row=1, column=1, sticky='se')
 
-    def create_weather_animation_canvas(self, image_path, fg_color):
-        WeatherAnimationCanvas(self, image_path, fg_color).grid(row=0, column=1, sticky='news')
+    def create_weather_animation_canvas(self, animation_list, fg_color):
+        WeatherAnimationCanvas(self, animation_list, fg_color).grid(row=0, column=1, sticky='news')

@@ -2,10 +2,13 @@ import urllib.request
 import json
 import requests
 from weather_data import _get_geo_info, get_weather_data
-
-
+from PIL import Image
+import os
+from settings import WEATHER_DATA
 class WeatherAppModel:
     def __init__(self, city, country, lat, long, unit):
+        self.forecast_img = None
+        self.animation_img_list = None
         self.current_condition = None
         self.today_date = None
         self.next_days_data = None
@@ -22,6 +25,7 @@ class WeatherAppModel:
         self.get_weather_info()
         self.process_today_data()
         self.process_next_5_days()
+        self.import_images()
 
     def check_data(self):
         # If user did not provide any location, find the location based on ip
@@ -87,3 +91,15 @@ class WeatherAppModel:
             for x in self.next_5_day_forecast
         ]
         print(self.next_days_data)
+
+    def import_images(self):
+        animation_path = WEATHER_DATA[self.current_condition]['path']
+        self.animation_img_list = [
+            Image.open(f"{path}\\{file}")
+            for path, _, files in os.walk(animation_path)
+            for file in files
+        ]
+        self.forecast_img = [
+            Image.open(f"images\\{condition}.png")
+            for _, _, condition in self.next_days_data
+        ]

@@ -1,7 +1,6 @@
 import customtkinter as ctk
 from settings import *
 from PIL import Image, ImageTk
-import os
 from itertools import cycle
 
 
@@ -73,16 +72,15 @@ class TodayDateLabel(ctk.CTkLabel):
 
 
 class WeatherAnimationCanvas(ctk.CTkCanvas):
-    def __init__(self, parent, image_path, fg_color):
+    def __init__(self, parent, animation_list, fg_color):
         super().__init__(master=parent,
                          bg=fg_color)
         # self.false = None
         # self.last_dem = None
         self.resize_after_id = None  # To keep track of the scheduled resize operation
         self.animate_id = None
+        self.animation_list = animation_list
 
-
-        self.image_path = image_path
         self.bind('<Configure>', self.schedule_resize)
         # self.after(500, self.animate)
 
@@ -93,9 +91,8 @@ class WeatherAnimationCanvas(ctk.CTkCanvas):
         #     for file in files
         # ]
         self.img_list = [
-            ImageTk.PhotoImage(Image.open(f"{path}\\{file}").resize(self.image_size))
-            for path, _, files in os.walk(self.image_path)
-            for file in files
+            ImageTk.PhotoImage(image.resize(self.image_size))
+            for image in self.animation_list
         ]
         self.iterable_img = cycle(self.img_list)
         if self.animate_id is not None:
