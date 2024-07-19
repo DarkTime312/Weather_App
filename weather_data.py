@@ -26,6 +26,7 @@ def get_weather_data(latitude, longitude, unit):
     response = requests.get(url)
     if response.status_code == 200:
         json_data = response.json()
+        print(response.text)
 
         today = json_data['list'][0]['dt_txt'].split(' ')[0]
         current_forcast = _process_weather_data(json_data['list'][0], today=True)

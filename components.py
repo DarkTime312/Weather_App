@@ -38,6 +38,8 @@ class TodayTemp(ctk.CTkFrame):
             self.feels_label.grid(row=1, column=0, sticky='news')
         elif layout == 'bottom_vertical':
             self.grid(row=2, column=0)
+        elif layout == 'horizontal on the right':
+            self.grid(row=3, column=0, sticky='n')
 
     def create_widgets(self):
         self.temp_date = ctk.CTkLabel(self,
@@ -66,7 +68,7 @@ class DateLocationLabel(ctk.CTkFrame):
         reset_grid(self)
 
         if layout == 'normal':
-            self.grid(row=1, column=0, columnspan=2, sticky='ew', )
+            self.grid(row=1, column=0, columnspan=2, sticky='sew')
 
             self.rowconfigure(0, weight=1)
             self.columnconfigure(0, weight=1)
@@ -75,7 +77,7 @@ class DateLocationLabel(ctk.CTkFrame):
             self.address_frame.grid(row=0, column=0, sticky='news')
             self.today_date_label.grid(row=0, column=1, sticky='e')
 
-        if layout == 'bottom_vertical':
+        elif layout == 'bottom_vertical' or layout == 'horizontal on the right':
             self.grid(row=0, column=0, sticky='news')
 
             self.rowconfigure(0, weight=1)
@@ -118,6 +120,14 @@ class WeatherAnimationCanvas(ctk.CTkCanvas):
 
         self.bind('<Configure>', self.schedule_resize)
         # self.after(500, self.animate)
+
+    def set_layout(self, layout: str):
+        if layout == 'normal':
+            self.grid(row=0, column=1, sticky='news')
+        elif layout == 'bottom_vertical':
+            self.grid(row=1, column=0, sticky='news')
+        elif layout == 'horizontal on the right':
+            self.grid(row=1, column=0, sticky='news')
 
     def import_images(self):
         # self.img_list = [
@@ -165,3 +175,89 @@ class WeatherAnimationCanvas(ctk.CTkCanvas):
         self.create_image(self.center_x, self.center_y, anchor='center', image=next_frame)
         self.update_idletasks()
         self.animate_id = self.after(50, self.animate)
+
+
+class NextWeekForecast(ctk.CTkFrame):
+    def __init__(self, parent, forecast_data, forecast_img, seperator_color):
+        self.forecast_data = forecast_data
+        self.forecast_img = forecast_img
+        self.seperator_color = seperator_color
+        super().__init__(master=parent, fg_color='white', corner_radius=20)
+
+    def set_layout(self, layout):
+        reset_grid(self)
+        if layout == 'bottom_vertical':
+            self.grid(row=3, column=0, sticky='news')
+            self.rowconfigure(0, weight=1)
+            self.columnconfigure(0, weight=1, uniform='a')
+            self.columnconfigure(1, weight=1, uniform='b')
+            self.columnconfigure(2, weight=1, uniform='a')
+            self.columnconfigure(3, weight=1, uniform='b')
+            self.columnconfigure(4, weight=1, uniform='a')
+            self.columnconfigure(5, weight=1, uniform='b')
+            self.columnconfigure(6, weight=1, uniform='a')
+        if layout == 'horizontal on the right':
+            self.grid(row=0, column=1, rowspan=4, sticky='news')
+
+            self.columnconfigure(0, weight=1, uniform='c')
+            self.rowconfigure(0, weight=1, uniform='a')
+            self.rowconfigure(1, weight=1, uniform='b')
+            self.rowconfigure(2, weight=1, uniform='a')
+            self.rowconfigure(3, weight=1, uniform='b')
+            self.rowconfigure(4, weight=1, uniform='a')
+            self.rowconfigure(5, weight=1, uniform='b')
+            self.rowconfigure(6, weight=1, uniform='a')
+
+        self.create_widgets(layout)
+
+    def create_widgets(self, layout):
+        test = zip(self.forecast_data, self.forecast_img)
+        for widget in self.winfo_children():
+            widget.destroy()
+
+        if layout == 'bottom_vertical':
+            for i in range(7):
+                if i % 2 == 0:
+                    (day_text, temp_text, weather_condition), img = next(test)
+                    frm = ctk.CTkFrame(self, fg_color='transparent', corner_radius=20)
+                    frm.grid(row=0, column=i, sticky='news')
+                    ForecastCanvas(frm, img).pack(side='top', fill='x', anchor='center')
+                    ctk.CTkLabel(frm, text=temp_text, font=(FONT, 18)).pack(side='top', expand=True)
+                    ctk.CTkLabel(frm, text=day_text[:3], font=(FONT, 15)).pack(side='bottom', expand=True)
+                else:
+                    separator = ctk.CTkFrame(self, fg_color=self.seperator_color, width=3)
+                    separator.grid(row=0, column=i, sticky='ns')
+        if layout == 'horizontal on the right':
+            for i in range(7):
+                if i % 2 == 0:
+                    (day_text, temp_text, weather_condition), img = next(test)
+                    frm = ctk.CTkFrame(self, fg_color='transparent')
+                    frm.grid(row=i, column=0, sticky='news')
+                    ForecastCanvas(frm, img).pack(side='right', fill='both', padx=5)
+                    ctk.CTkLabel(frm, text=temp_text, font=(FONT, 18), anchor='e', fg_color='transparent').pack(
+                        side='right', expand=True, fill='both', padx=5)
+                    ctk.CTkLabel(frm, text=day_text, font=(FONT, 15)).pack(side='left', expand=True, fill='both')
+                else:
+                    separator = ctk.CTkFrame(self, fg_color=self.seperator_color, height=3)
+                    separator.grid(row=i, column=0, sticky='ew')
+
+
+class ForecastCanvas(ctk.CTkCanvas):
+    def __init__(self, parent, image):
+        super().__init__(master=parent, bg='white', bd=0, highlightthickness=0)
+        self.image = image
+        self.bind('<Configure>', self.insert_image)
+
+    def insert_image(self, event):
+        # Determine the new size, keeping the aspect ratio square
+        new_size = min(event.width, event.height)
+        self.configure(width=new_size, height=new_size)  # Set both width and height to the smaller dimension
+
+        canvas_width = event.width
+        canvas_height = event.height
+        # print(f'{event=}')
+        img_size = min(canvas_width, canvas_height)
+        image = self.image.resize((img_size, img_size))
+        self.image_tk = ImageTk.PhotoImage(image)
+        self.delete("all")  # Clear the canvas
+        self.create_image(canvas_width // 2, canvas_height // 2, anchor='center', image=self.image_tk)

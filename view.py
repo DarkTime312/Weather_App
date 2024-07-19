@@ -5,8 +5,7 @@ except:
 
 import customtkinter as ctk
 from settings import *
-from components import TodayTemp, DateLocationLabel, WeatherAnimationCanvas
-from PIL import Image, ImageTk
+from components import reset_grid, TodayTemp, DateLocationLabel, WeatherAnimationCanvas, NextWeekForecast
 
 
 class WeatherAppView(ctk.CTk):
@@ -16,7 +15,7 @@ class WeatherAppView(ctk.CTk):
         self.geometry('550x250')
         self.minsize(550, 250)
         self.title('')
-        self.configure(padx=5, pady=5)
+        self.configure(padx=10, pady=10)
         self.iconbitmap('images/empty.ico')
         self.bind('<Configure>', self.decide_layout)
         self.current_layout = None
@@ -38,7 +37,7 @@ class WeatherAppView(ctk.CTk):
                 mode = 'vertical on bottom'
                 if self.current_layout != mode:
                     self.current_layout = mode
-                    self.reset_grid()
+                    reset_grid(self)
                     print('vertical on bottom')
                     self.vertical_on_bottom_layout()
                     # print(window_width, window_height)
@@ -56,10 +55,10 @@ class WeatherAppView(ctk.CTk):
                 if self.current_layout != mode:
                     self.current_layout = mode
                     print('horizontal on the right')
-                    # print(window_width, window_height)
+                    self.horizontal_on_right()
 
     def normal_layout(self):
-        self.reset_grid()
+        reset_grid(self)
 
         self.rowconfigure(0, weight=4, uniform='a')
         self.rowconfigure(1, weight=1, uniform='a')
@@ -68,33 +67,32 @@ class WeatherAppView(ctk.CTk):
 
         self.today_temp.set_layout('normal')
         self.date_location_label.set_layout('normal')
-        self.weather_animation_canvas.grid(row=0, column=1, sticky='news')
+        self.weather_animation_canvas.set_layout('normal')
 
     def vertical_on_bottom_layout(self):
-        self.reset_grid()
+        reset_grid(self)
 
         self.rowconfigure(0, weight=3, uniform='a')
-        self.rowconfigure(1, weight=5, uniform='a')
+        self.rowconfigure(1, weight=4, uniform='a')
         self.rowconfigure(2, weight=3, uniform='a')
-        self.rowconfigure(3, weight=5, uniform='a')
-        # self.rowconfigure(4, weight=1, uniform='a')
+        self.rowconfigure(3, weight=3, uniform='a')
         self.columnconfigure(0, weight=1, uniform='b')
 
         self.date_location_label.set_layout('bottom_vertical')
-        self.weather_animation_canvas.grid(row=1, column=0, sticky='news')
+        self.weather_animation_canvas.set_layout('bottom_vertical')
         self.today_temp.set_layout('bottom_vertical')
-        ctk.CTkLabel(self, fg_color='red').grid(row=3, column=0, sticky='news')
+        self.next_week_forecast.set_layout('bottom_vertical')
+        # ctk.CTkLabel(self, fg_color='red').grid(row=3, column=0, sticky='news')
 
-    def reset_grid(self):
-        # Remove all widgets from the grid
-        for widget in self.winfo_children():
-            widget.grid_forget()
+    def horizontal_on_right(self):
+        reset_grid(self)
+        self.date_location_label.set_layout('horizontal on the right')
+        self.weather_animation_canvas.set_layout('horizontal on the right')
+        self.next_week_forecast.set_layout('horizontal on the right')
+        self.today_temp.set_layout('horizontal on the right')
 
-        # Reset row and column configurations
-        for i in range(self.grid_size()[1]):  # Number of rows
-            self.grid_rowconfigure(i, weight=0, uniform='')
-        for j in range(self.grid_size()[0]):  # Number of columns
-            self.grid_columnconfigure(j, weight=0, uniform='')
+        self.rowconfigure((0, 1, 2, 3), weight=1, uniform='a')
+        self.columnconfigure((0, 1), weight=1, uniform='b')
 
     def change_titlebar_color(self, weather_condition) -> None:
         try:
@@ -113,3 +111,6 @@ class WeatherAppView(ctk.CTk):
 
     def create_weather_animation_canvas(self, animation_list, fg_color):
         self.weather_animation_canvas = WeatherAnimationCanvas(self, animation_list, fg_color)
+
+    def create_forecast_object(self, forecast_data, forecast_img_list, seperator_color):
+        self.next_week_forecast = NextWeekForecast(self, forecast_data, forecast_img_list, seperator_color)
