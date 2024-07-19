@@ -73,8 +73,8 @@ class WeatherAppView(ctk.CTk):
 
         self.rowconfigure(0, weight=18, uniform='a')
         self.rowconfigure(1, weight=28, uniform='a')
-        self.rowconfigure(2, weight=30, uniform='a')
-        self.rowconfigure(3, weight=24, uniform='a')
+        self.rowconfigure(2, weight=24, uniform='a')
+        self.rowconfigure(3, weight=30, uniform='a')
         self.columnconfigure(0, weight=1, uniform='b')
 
         self.date_location_label.set_layout('bottom_vertical')

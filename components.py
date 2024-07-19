@@ -2,6 +2,7 @@ import customtkinter as ctk
 from settings import *
 from PIL import Image, ImageTk
 from itertools import cycle
+import time
 
 
 def reset_grid(container):
@@ -76,7 +77,7 @@ class DateLocationLabel(ctk.CTkFrame):
             self.columnconfigure(1, weight=1)
 
             self.address_frame.grid(row=0, column=0, sticky='news')
-            self.today_date_label.grid(row=0, column=1, sticky='e')
+            self.today_date_label.grid(row=0, column=1, sticky='e', padx=5)
 
         elif layout == 'bottom_vertical' or layout == 'horizontal on the right':
             self.grid(row=0, column=0, sticky='news')
@@ -86,16 +87,7 @@ class DateLocationLabel(ctk.CTkFrame):
             self.columnconfigure(0, weight=1)
 
             self.address_frame.grid(row=0, column=0, sticky='s')
-            self.today_date_label.grid(row=1, column=0, sticky='n')
-        # elif layout == 'vertical on the right':
-        #     self.grid(row=3, column=0, columnspan=2, sticky='sew')
-        #
-        #     self.rowconfigure(0, weight=1)
-        #     self.columnconfigure(0, weight=1)
-        #     self.columnconfigure(1, weight=1)
-        #
-        #     self.address_frame.grid(row=0, column=0, sticky='news')
-        #     self.today_date_label.grid(row=0, column=1, sticky='e')
+            self.today_date_label.grid(row=1, column=0, sticky='n', padx=5)
 
     def create_widgets(self):
         self.address_frame = ctk.CTkFrame(self, fg_color='transparent')
@@ -124,14 +116,14 @@ class WeatherAnimationCanvas(ctk.CTkCanvas):
                          bg=fg_color,
                          bd=0,
                          highlightthickness=0)
-        # self.false = None
-        # self.last_dem = None
-        self.resize_after_id = None  # To keep track of the scheduled resize operation
+        # self.resizing = False
+        # self.resize_after_id = None  # To keep track of the scheduled resize operation
         self.animate_id = None
+        self.is_active = None
+        self.check_scheduled = None
         self.animation_list = animation_list
 
         self.bind('<Configure>', self.schedule_resize)
-        # self.after(500, self.animate)
 
     def set_layout(self, layout: str):
         if layout == 'normal':
@@ -143,52 +135,55 @@ class WeatherAnimationCanvas(ctk.CTkCanvas):
         elif layout == 'vertical on the right':
             self.grid(row=0, column=1, sticky='news')
 
-    def import_images(self):
-        # self.img_list = [
-        #     Image.open(f"{path}\\{file}").resize((100, 100))
-        #     for path, _, files in os.walk(self.image_path)
-        #     for file in files
-        # ]
+    def import_images(self, image_size):
         self.img_list = [
-            ImageTk.PhotoImage(image.resize(self.image_size))
+            ImageTk.PhotoImage(image.resize(image_size))
             for image in self.animation_list
         ]
         self.iterable_img = cycle(self.img_list)
-        if self.animate_id is not None:
-            self.after_cancel(self.animate_id)
+
         self.animate()
 
-    def get_canvas_dimensions(self, event):
-        self.canvas_width = event.width
-        self.canvas_height = event.height
+    def get_canvas_dimensions(self):
+        self.canvas_width = self.winfo_width()
+        self.canvas_height = self.winfo_height()
         image_size = min(self.canvas_width, self.canvas_height)
-        self.image_size = (image_size, image_size)
-        # print(self.image_size)
 
-        self.center_x = event.width // 2
-        self.center_y = event.height // 2
-        # if self.false is None or self.canvas_width // 80 != self.last_dem:
-        self.import_images()
-        self.last_dem = self.canvas_width // 80
-        print('Imported images')
-        # self.false = False
-        self.update_idletasks()
+        self.center_x = self.canvas_width // 2
+        self.center_y = self.canvas_height // 2
+
+        self.import_images((image_size, image_size))
 
     def schedule_resize(self, event):
-        # Cancel any previously scheduled resize operation
-        if self.resize_after_id is not None:
-            self.after_cancel(self.resize_after_id)
+        self.is_active = False
 
-        # Schedule a new resize operation to run after 200 milliseconds of inactivity
-        self.resize_after_id = self.after(200, lambda: self.get_canvas_dimensions(event))
+        self.delete('all')
+
+        self.get_time = time.time()
+
+        if not self.check_scheduled:
+            self.check_resume()
+            self.check_scheduled = True
+
+    def check_resume(self):
+        if time.time() - self.get_time > 0.3:
+            print('started the anime and turning off the check')
+            # self.get_time = None
+            self.check_scheduled = False
+            self.is_active = True
+            self.get_canvas_dimensions()
+        else:
+            print('running the check again')
+            self.after(300, self.check_resume)
 
     def animate(self):
-        next_frame = next(self.iterable_img)
-        # self.img_tk = ImageTk.PhotoImage(next_frame)
-        self.delete('all')
-        self.create_image(self.center_x, self.center_y, anchor='center', image=next_frame)
-        self.update_idletasks()
-        self.animate_id = self.after(50, self.animate)
+        if self.is_active:
+            next_frame = next(self.iterable_img)
+            # self.img_tk = ImageTk.PhotoImage(next_frame)
+            self.delete('all')
+            self.create_image(self.center_x, self.center_y, anchor='center', image=next_frame)
+            self.update_idletasks()
+            self.animate_id = self.after(50, self.animate)
 
 
 class NextWeekForecast(ctk.CTkFrame):
@@ -236,9 +231,9 @@ class NextWeekForecast(ctk.CTkFrame):
                     (day_text, temp_text, weather_condition), img = next(test)
                     frm = ctk.CTkFrame(self, fg_color='transparent', corner_radius=20)
                     frm.grid(row=0, column=i, sticky='news')
-                    ForecastCanvas(frm, img).pack(side='top', fill='x', anchor='center')
-                    ctk.CTkLabel(frm, text=temp_text, font=(FONT, 20)).pack(side='top', expand=True)
-                    ctk.CTkLabel(frm, text=day_text[:3], font=(FONT, 15)).pack(side='bottom', expand=True)
+                    ForecastCanvas(frm, img).pack(side='top', fill='both', anchor='center')
+                    ctk.CTkLabel(frm, text=temp_text, font=(FONT, 20)).pack(side='top', expand=True, fill='x')
+                    ctk.CTkLabel(frm, text=day_text[:3], font=(FONT, 15)).pack(side='bottom', expand=True, fill='x')
                 else:
                     separator = ctk.CTkFrame(self, fg_color=self.seperator_color, width=3)
                     separator.grid(row=0, column=i, sticky='ns')
@@ -255,18 +250,6 @@ class NextWeekForecast(ctk.CTkFrame):
                 else:
                     separator = ctk.CTkFrame(self, fg_color=self.seperator_color, height=3)
                     separator.grid(row=i, column=0, sticky='ew')
-        # elif layout == 'vertical on the right':
-            # for i in range(7):
-            #     if i % 2 == 0:
-            #         (day_text, temp_text, weather_condition), img = next(test)
-            #         frm = ctk.CTkFrame(self, fg_color='transparent', corner_radius=20)
-            #         frm.grid(row=0, column=i, sticky='news')
-            #         ForecastCanvas(frm, img).pack(side='top', fill='x', anchor='center')
-            #         ctk.CTkLabel(frm, text=temp_text, font=(FONT, 18)).pack(side='top', expand=True)
-            #         ctk.CTkLabel(frm, text=day_text[:3], font=(FONT, 15)).pack(side='bottom', expand=True)
-            #     else:
-            #         separator = ctk.CTkFrame(self, fg_color=self.seperator_color, width=3)
-            #         separator.grid(row=0, column=i, sticky='ns')
 
 
 class ForecastCanvas(ctk.CTkCanvas):
