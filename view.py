@@ -37,7 +37,6 @@ class WeatherAppView(ctk.CTk):
                 mode = 'vertical on bottom'
                 if self.current_layout != mode:
                     self.current_layout = mode
-                    reset_grid(self)
                     print('vertical on bottom')
                     self.vertical_on_bottom_layout()
                     # print(window_width, window_height)
@@ -48,7 +47,7 @@ class WeatherAppView(ctk.CTk):
                 if self.current_layout != mode:
                     self.current_layout = mode
                     print('vertical on the right side')
-                    # print(window_width, window_height)
+                    self.vertical_on_right_layout()
 
             else:
                 mode = 'horizontal on the right'
@@ -86,13 +85,30 @@ class WeatherAppView(ctk.CTk):
 
     def horizontal_on_right(self):
         reset_grid(self)
+        self.rowconfigure((0, 1, 2, 3), weight=1, uniform='a')
+        self.columnconfigure((0, 1), weight=1, uniform='b')
+
         self.date_location_label.set_layout('horizontal on the right')
         self.weather_animation_canvas.set_layout('horizontal on the right')
         self.next_week_forecast.set_layout('horizontal on the right')
         self.today_temp.set_layout('horizontal on the right')
 
-        self.rowconfigure((0, 1, 2, 3), weight=1, uniform='a')
-        self.columnconfigure((0, 1), weight=1, uniform='b')
+    def vertical_on_right_layout(self):
+        reset_grid(self)
+
+        self.rowconfigure(0, weight=6, uniform='a')
+        self.rowconfigure(1, weight=1, uniform='a')
+        # self.rowconfigure(tuple(range(3)), weight=1, uniform='a')
+        # self.rowconfigure(tuple(range(3)), weight=1, uniform='a')
+        # self.rowconfigure(tuple(range(3)), weight=1, uniform='a')
+        self.columnconfigure(0, weight=1, uniform='b')
+        self.columnconfigure(1, weight=1, uniform='b')
+        self.columnconfigure(2, weight=4, uniform='b')
+
+        self.date_location_label.set_layout('vertical on the right')
+        self.next_week_forecast.set_layout('vertical on the right')
+        self.today_temp.set_layout('vertical on the right')
+        self.weather_animation_canvas.set_layout('vertical on the right')
 
     def change_titlebar_color(self, weather_condition) -> None:
         try:
