@@ -121,7 +121,9 @@ class DateLocationLabel(ctk.CTkFrame):
 class WeatherAnimationCanvas(ctk.CTkCanvas):
     def __init__(self, parent, animation_list, fg_color):
         super().__init__(master=parent,
-                         bg=fg_color)
+                         bg=fg_color,
+                         bd=0,
+                         highlightthickness=0)
         # self.false = None
         # self.last_dem = None
         self.resize_after_id = None  # To keep track of the scheduled resize operation
@@ -178,7 +180,7 @@ class WeatherAnimationCanvas(ctk.CTkCanvas):
             self.after_cancel(self.resize_after_id)
 
         # Schedule a new resize operation to run after 200 milliseconds of inactivity
-        self.resize_after_id = self.after(50, lambda: self.get_canvas_dimensions(event))
+        self.resize_after_id = self.after(200, lambda: self.get_canvas_dimensions(event))
 
     def animate(self):
         next_frame = next(self.iterable_img)
@@ -194,6 +196,7 @@ class NextWeekForecast(ctk.CTkFrame):
         self.forecast_data = forecast_data
         self.forecast_img = forecast_img
         self.seperator_color = seperator_color
+        self.num_days = (len(forecast_data) * 2) - 1
         super().__init__(master=parent, fg_color='white', corner_radius=20)
 
     def set_layout(self, layout):
@@ -201,39 +204,24 @@ class NextWeekForecast(ctk.CTkFrame):
         if layout == 'bottom_vertical':
             self.grid(row=3, column=0, sticky='news')
             self.rowconfigure(0, weight=1)
-            print(len(self.forecast_data) * 2 - 1, 'how much?')
-            for i in range(9):
+            for i in range(self.num_days):
                 uniform = 'a' if i % 2 == 0 else 'b'
-                self.columnconfigure(0, weight=1, uniform=uniform)
-                # self.columnconfigure(1, weight=1, uniform='b')
-                # self.columnconfigure(2, weight=1, uniform='a')
-                # self.columnconfigure(3, weight=1, uniform='b')
-                # self.columnconfigure(4, weight=1, uniform='a')
-                # self.columnconfigure(5, weight=1, uniform='b')
-                # self.columnconfigure(6, weight=1, uniform='a')
+                self.columnconfigure(i, weight=1, uniform=uniform)
         if layout == 'horizontal on the right':
             self.grid(row=0, column=1, rowspan=4, sticky='news')
             self.columnconfigure(0, weight=1, uniform='c')
 
-            for i in range(9):
+            for i in range(self.num_days):
                 uniform = 'a' if i % 2 == 0 else 'b'
-                self.rowconfigure(0, weight=1, uniform=uniform)
-
-            # self.rowconfigure(0, weight=1, uniform='a')
-            # self.rowconfigure(1, weight=1, uniform='b')
-            # self.rowconfigure(2, weight=1, uniform='a')
-            # self.rowconfigure(3, weight=1, uniform='b')
-            # self.rowconfigure(4, weight=1, uniform='a')
-            # self.rowconfigure(5, weight=1, uniform='b')
-            # self.rowconfigure(6, weight=1, uniform='a')
+                self.rowconfigure(i, weight=1, uniform=uniform)
 
         if layout == 'vertical on the right':
             self.grid(row=0, column=2, rowspan=2, sticky='news')
             self.rowconfigure(0, weight=1)
 
-            for i in range(9):
+            for i in range(self.num_days):
                 uniform = 'a' if i % 2 == 0 else 'b'
-                self.columnconfigure(0, weight=1, uniform=uniform)
+                self.columnconfigure(i, weight=1, uniform=uniform)
 
         self.create_widgets(layout)
 
@@ -243,25 +231,25 @@ class NextWeekForecast(ctk.CTkFrame):
             widget.destroy()
 
         if layout == 'bottom_vertical' or layout == 'vertical on the right':
-            for i in range(9):
+            for i in range(self.num_days):
                 if i % 2 == 0:
                     (day_text, temp_text, weather_condition), img = next(test)
                     frm = ctk.CTkFrame(self, fg_color='transparent', corner_radius=20)
                     frm.grid(row=0, column=i, sticky='news')
                     ForecastCanvas(frm, img).pack(side='top', fill='x', anchor='center')
-                    ctk.CTkLabel(frm, text=temp_text, font=(FONT, 18)).pack(side='top', expand=True)
+                    ctk.CTkLabel(frm, text=temp_text, font=(FONT, 20)).pack(side='top', expand=True)
                     ctk.CTkLabel(frm, text=day_text[:3], font=(FONT, 15)).pack(side='bottom', expand=True)
                 else:
                     separator = ctk.CTkFrame(self, fg_color=self.seperator_color, width=3)
                     separator.grid(row=0, column=i, sticky='ns')
         elif layout == 'horizontal on the right':
-            for i in range(9):
+            for i in range(self.num_days):
                 if i % 2 == 0:
                     (day_text, temp_text, weather_condition), img = next(test)
                     frm = ctk.CTkFrame(self, fg_color='transparent')
                     frm.grid(row=i, column=0, sticky='news')
                     ForecastCanvas(frm, img).pack(side='right', fill='both', padx=5)
-                    ctk.CTkLabel(frm, text=temp_text, font=(FONT, 18), anchor='e', fg_color='transparent').pack(
+                    ctk.CTkLabel(frm, text=temp_text, font=(FONT, 20), anchor='e', fg_color='transparent').pack(
                         side='right', expand=True, fill='both', padx=5)
                     ctk.CTkLabel(frm, text=day_text, font=(FONT, 15)).pack(side='left', expand=True, fill='both')
                 else:

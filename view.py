@@ -59,7 +59,7 @@ class WeatherAppView(ctk.CTk):
     def normal_layout(self):
         reset_grid(self)
 
-        self.rowconfigure(0, weight=4, uniform='a')
+        self.rowconfigure(0, weight=6, uniform='a')
         self.rowconfigure(1, weight=1, uniform='a')
 
         self.columnconfigure((0, 1), weight=1, uniform='b')
@@ -71,10 +71,10 @@ class WeatherAppView(ctk.CTk):
     def vertical_on_bottom_layout(self):
         reset_grid(self)
 
-        self.rowconfigure(0, weight=3, uniform='a')
-        self.rowconfigure(1, weight=4, uniform='a')
-        self.rowconfigure(2, weight=3, uniform='a')
-        self.rowconfigure(3, weight=3, uniform='a')
+        self.rowconfigure(0, weight=18, uniform='a')
+        self.rowconfigure(1, weight=28, uniform='a')
+        self.rowconfigure(2, weight=30, uniform='a')
+        self.rowconfigure(3, weight=24, uniform='a')
         self.columnconfigure(0, weight=1, uniform='b')
 
         self.date_location_label.set_layout('bottom_vertical')
