@@ -116,73 +116,83 @@ class WeatherAnimationCanvas(ctk.CTkCanvas):
                          bg=fg_color,
                          bd=0,
                          highlightthickness=0)
-        # self.resizing = False
-        # self.resize_after_id = None  # To keep track of the scheduled resize operation
-        self.animate_id = None
-        self.is_active = None
-        self.check_scheduled = None
         self.animation_list = animation_list
+        self.center_x = None
+        self.center_y = None
+        self.iterable_img = None
+        self.last_resize_time = None
+        self.animate_id = None
+        self.is_animating = None
+        self.check_scheduled = None
 
         self.bind('<Configure>', self.schedule_resize)
 
     def set_layout(self, layout: str):
-        if layout == 'normal':
+        if layout in {'normal', 'vertical on the right'}:
             self.grid(row=0, column=1, sticky='news')
-        elif layout == 'bottom_vertical':
+        elif layout in {'bottom_vertical', 'horizontal on the right'}:
             self.grid(row=1, column=0, sticky='news')
-        elif layout == 'horizontal on the right':
-            self.grid(row=1, column=0, sticky='news')
-        elif layout == 'vertical on the right':
-            self.grid(row=0, column=1, sticky='news')
-
-    def import_images(self, image_size):
-        self.img_list = [
-            ImageTk.PhotoImage(image.resize(image_size))
-            for image in self.animation_list
-        ]
-        self.iterable_img = cycle(self.img_list)
-
-        self.animate()
-
-    def get_canvas_dimensions(self):
-        self.canvas_width = self.winfo_width()
-        self.canvas_height = self.winfo_height()
-        image_size = min(self.canvas_width, self.canvas_height)
-
-        self.center_x = self.canvas_width // 2
-        self.center_y = self.canvas_height // 2
-
-        self.import_images((image_size, image_size))
 
     def schedule_resize(self, event):
-        self.is_active = False
-
+        # Turn off the animation
+        self.is_animating = False
+        # Remove the last animation frame
         self.delete('all')
+        # Store the time that user done the last resize action
+        self.last_resize_time = time.time()
 
-        self.get_time = time.time()
-
+        # If the check for resume mechanism isn't active already, activate it
         if not self.check_scheduled:
             self.check_resume()
             self.check_scheduled = True
 
     def check_resume(self):
-        if time.time() - self.get_time > 0.3:
-            print('started the anime and turning off the check')
-            # self.get_time = None
+        # If at least 300 milliseconds is passed since the last resize action
+        # Assume user is done resizing the window, so we can start the animation
+        # Otherwise just keep checking
+        if time.time() - self.last_resize_time > 0.3:
+            self.last_resize_time = None
             self.check_scheduled = False
-            self.is_active = True
-            self.get_canvas_dimensions()
+            self.start_animation()
         else:
-            print('running the check again')
-            self.after(300, self.check_resume)
+            self.after(100, self.check_resume)
+
+    def start_animation(self):
+        # Get the new window dimensions
+        size = self.get_canvas_dimensions()
+        self.iterable_img = self.import_images(size)
+        # Start the animation
+        self.is_animating = True
+        self.animate()
+
+    def get_canvas_dimensions(self):
+        # Get the dimensions of the new resized
+        canvas_width = self.winfo_width()
+        canvas_height = self.winfo_height()
+        # Use the lowest of the 2 numbers to decide the width and height
+        # of new image which we want to be a square shape
+        minimum_size = min(canvas_width, canvas_height)
+
+        # Store the coordinates to center of the canvas
+        self.center_x = canvas_width // 2
+        self.center_y = canvas_height // 2
+
+        return minimum_size, minimum_size
+
+    def import_images(self, image_size):
+        # Import the images with new size
+        # And create an infinite iterable
+        img_list = [
+            ImageTk.PhotoImage(image.resize(image_size))
+            for image in self.animation_list
+        ]
+        return cycle(img_list)
 
     def animate(self):
-        if self.is_active:
+        if self.is_animating:
             next_frame = next(self.iterable_img)
-            # self.img_tk = ImageTk.PhotoImage(next_frame)
             self.delete('all')
-            self.create_image(self.center_x, self.center_y, anchor='center', image=next_frame)
-            self.update_idletasks()
+            self.create_image(self.center_x, self.center_y, image=next_frame)
             self.animate_id = self.after(50, self.animate)
 
 
