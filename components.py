@@ -1,8 +1,9 @@
 from itertools import cycle
+from typing import Iterable, Generator
 import time
 
 import customtkinter as ctk
-from PIL import Image, ImageTk
+from PIL import ImageTk
 
 from settings import *
 from utils import reset_grid_layout
@@ -14,11 +15,12 @@ class TodayTemp(ctk.CTkFrame):
         self.current_temp = current_temp
         self.feels_temp = feels_temp
         self.text_color = text_color
+        self.feels_label = None
+        self.temp_date = None
 
         self.create_widgets()
 
     def set_layout(self, layout):
-        # reset_grid(self)
         if layout == 'normal':
             self.grid(row=0, column=0)
 
@@ -39,12 +41,12 @@ class TodayTemp(ctk.CTkFrame):
         self.temp_date = ctk.CTkLabel(self,
                                       text=self.current_temp,
                                       text_color=self.text_color,
-                                      font=(FONT, 50))
+                                      font=(FONT, TODAY_TEMP_FONT_SIZE))
 
         self.feels_label = ctk.CTkLabel(self,
                                         text=f'feels like: {self.feels_temp}',
                                         text_color=self.text_color,
-                                        font=(FONT, 15)
+                                        font=(FONT, FEELS_LIKE_FONT_SIZE)
                                         )
 
 
@@ -55,6 +57,12 @@ class DateLocationLabel(ctk.CTkFrame):
         self.city = city
         self.country = country
         self.date = date
+
+        self.today_date_label = None
+        self.country_label = None
+        self.city_label = None
+        self.address_frame = None
+
         self.create_widgets()
 
     def set_layout(self, layout):
@@ -84,21 +92,22 @@ class DateLocationLabel(ctk.CTkFrame):
         self.address_frame = ctk.CTkFrame(self, fg_color='transparent')
         self.city_label = ctk.CTkLabel(self.address_frame,
                                        text_color=self.text_color,
-                                       text=self.city + ', ',
-                                       font=(FONT, 20, 'bold'))
+                                       text=f'{self.city}, ',
+                                       font=(FONT, REGULAR_FONT_SIZE, 'bold'))
 
         self.country_label = ctk.CTkLabel(self.address_frame,
                                           text_color=self.text_color,
                                           text=self.country,
-                                          font=(FONT, 18))
+                                          font=(FONT, REGULAR_FONT_SIZE))
+
+        self.city_label.pack(side='left')
+        self.country_label.pack(side='left')
 
         self.today_date_label = ctk.CTkLabel(self,
                                              text_color=self.text_color,
                                              text=self.date,
-                                             font=(FONT, 20)
+                                             font=(FONT, REGULAR_FONT_SIZE)
                                              )
-        self.city_label.pack(side='left')
-        self.country_label.pack(side='left')
 
 
 class WeatherAnimationCanvas(ctk.CTkCanvas):
@@ -108,11 +117,11 @@ class WeatherAnimationCanvas(ctk.CTkCanvas):
                          bd=0,
                          highlightthickness=0)
         self.animation_list = animation_list
+
         self.center_x = None
         self.center_y = None
         self.iterable_img = None
         self.last_resize_time = None
-        self.animate_id = None
         self.is_animating = None
         self.check_scheduled = None
 
@@ -146,6 +155,7 @@ class WeatherAnimationCanvas(ctk.CTkCanvas):
             self.check_scheduled = False
             self.start_animation()
         else:
+            # Check again in 100 milliseconds
             self.after(100, self.check_resume)
 
     def start_animation(self):
@@ -156,35 +166,35 @@ class WeatherAnimationCanvas(ctk.CTkCanvas):
         self.is_animating = True
         self.animate()
 
-    def get_canvas_dimensions(self):
+    def get_canvas_dimensions(self) -> tuple[int, int]:
         # Get the dimensions of the new resized
-        canvas_width = self.winfo_width()
-        canvas_height = self.winfo_height()
+        canvas_width: int = self.winfo_width()
+        canvas_height: int = self.winfo_height()
         # Use the lowest of the 2 numbers to decide the width and height
         # of new image which we want to be a square shape
-        minimum_size = min(canvas_width, canvas_height)
+        minimum_size: int = min(canvas_width, canvas_height)
 
         # Store the coordinates to center of the canvas
-        self.center_x = canvas_width // 2
-        self.center_y = canvas_height // 2
+        self.center_x: int = canvas_width // 2
+        self.center_y: int = canvas_height // 2
 
         return minimum_size, minimum_size
 
-    def import_images(self, image_size):
+    def import_images(self, image_size: tuple[int, int]) -> Iterable[ImageTk]:
         # Import the images with new size
         # And create an infinite iterable
-        img_list = [
+        image_generator: Generator = (
             ImageTk.PhotoImage(image.resize(image_size))
             for image in self.animation_list
-        ]
-        return cycle(img_list)
+        )
+        return cycle(image_generator)
 
     def animate(self):
         if self.is_animating:
-            next_frame = next(self.iterable_img)
+            next_frame: ImageTk = next(self.iterable_img)
             self.delete('all')
             self.create_image(self.center_x, self.center_y, image=next_frame)
-            self.animate_id = self.after(50, self.animate)
+            self.after(ANIMATION_SPEED, self.animate)
 
 
 class NextWeekForecast(ctk.CTkFrame):
@@ -218,6 +228,8 @@ class NextWeekForecast(ctk.CTkFrame):
             for i in range(self.num_days):
                 uniform = 'a' if i % 2 == 0 else 'b'
                 self.columnconfigure(i, weight=1, uniform=uniform)
+        if layout == 'normal':
+            pass
 
         self.create_widgets(layout)
 

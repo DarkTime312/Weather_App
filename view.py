@@ -28,7 +28,10 @@ class WeatherAppView(ctk.CTk):
             'vertical on the right side': self.vertical_on_right_layout,
             'horizontal on the right': self.horizontal_on_right_layout
         }
-
+        self.next_week_forecast = None
+        self.weather_animation_canvas = None
+        self.date_location_label = None
+        self.today_temp = None
         self.active_layout = None
 
     def layout_manager(self, event) -> None:
@@ -49,22 +52,28 @@ class WeatherAppView(ctk.CTk):
         if self.active_layout != current_mode:
             # print(current_mode)
             self.active_layout: str = current_mode
+            reset_grid_layout(self)
             self.layout_functions[current_mode]()
 
-    def normal_layout(self):
-        reset_grid_layout(self)
+    def apply_layout(self, layout: str) -> None:
+        view_objects = (self.today_temp,
+                        self.date_location_label,
+                        self.weather_animation_canvas,
+                        self.next_week_forecast)
+
+        for obj in view_objects:
+            obj.set_layout(layout)
+
+    def normal_layout(self) -> None:
 
         self.rowconfigure(0, weight=6, uniform='a')
         self.rowconfigure(1, weight=1, uniform='a')
 
         self.columnconfigure((0, 1), weight=1, uniform='b')
 
-        self.today_temp.set_layout('normal')
-        self.date_location_label.set_layout('normal')
-        self.weather_animation_canvas.set_layout('normal')
+        self.apply_layout('normal')
 
     def vertical_on_bottom_layout(self):
-        reset_grid_layout(self)
 
         self.rowconfigure(0, weight=18, uniform='a')
         self.rowconfigure(1, weight=28, uniform='a')
@@ -72,38 +81,23 @@ class WeatherAppView(ctk.CTk):
         self.rowconfigure(3, weight=30, uniform='a')
         self.columnconfigure(0, weight=1, uniform='b')
 
-        self.date_location_label.set_layout('bottom_vertical')
-        self.weather_animation_canvas.set_layout('bottom_vertical')
-        self.today_temp.set_layout('bottom_vertical')
-        self.next_week_forecast.set_layout('bottom_vertical')
-        # ctk.CTkLabel(self, fg_color='red').grid(row=3, column=0, sticky='news')
+        self.apply_layout('bottom_vertical')
 
     def horizontal_on_right_layout(self):
-        reset_grid_layout(self)
         self.rowconfigure((0, 1, 2, 3), weight=1, uniform='a')
         self.columnconfigure((0, 1), weight=1, uniform='b')
 
-        self.date_location_label.set_layout('horizontal on the right')
-        self.weather_animation_canvas.set_layout('horizontal on the right')
-        self.next_week_forecast.set_layout('horizontal on the right')
-        self.today_temp.set_layout('horizontal on the right')
+        self.apply_layout('horizontal on the right')
 
     def vertical_on_right_layout(self):
-        reset_grid_layout(self)
-
         self.rowconfigure(0, weight=6, uniform='a')
         self.rowconfigure(1, weight=1, uniform='a')
-        # self.rowconfigure(tuple(range(3)), weight=1, uniform='a')
-        # self.rowconfigure(tuple(range(3)), weight=1, uniform='a')
-        # self.rowconfigure(tuple(range(3)), weight=1, uniform='a')
+
         self.columnconfigure(0, weight=1, uniform='b')
         self.columnconfigure(1, weight=1, uniform='b')
         self.columnconfigure(2, weight=4, uniform='b')
 
-        self.date_location_label.set_layout('vertical on the right')
-        self.next_week_forecast.set_layout('vertical on the right')
-        self.today_temp.set_layout('vertical on the right')
-        self.weather_animation_canvas.set_layout('vertical on the right')
+        self.apply_layout('vertical on the right')
 
     def change_titlebar_color(self, weather_condition: str) -> None:
         try:

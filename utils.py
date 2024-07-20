@@ -2,7 +2,6 @@ from typing import NamedTuple
 from datetime import datetime
 
 import requests
-import customtkinter
 
 from settings import BASE_URL, API_KEY
 
@@ -164,7 +163,7 @@ def _get_geo_info(city_name: str | None = None,
     return LocationData(country_name, city_name, latitude, longitude)
 
 
-def reset_grid_layout(container: customtkinter.CTk) -> None:
+def reset_grid_layout(container) -> None:
     """
     Reset the grid layout of a given container in a customtkinter application.
 
@@ -175,7 +174,6 @@ def reset_grid_layout(container: customtkinter.CTk) -> None:
     Args:
         container (customtkinter.CTk): The container whose grid layout is to be reset.
     """
-
     # Remove all widgets from the grid
     for widget in container.winfo_children():
         widget.grid_forget()

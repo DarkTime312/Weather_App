@@ -1,8 +1,14 @@
-API_KEY = '288467633cb6e715fc2c24b28a96e742'
-BASE_URL = 'https://api.openweathermap.org/data/2.5/forecast?'
-FONT = 'Calibri'
+from typing import Final
 
-WEATHER_DATA = {
+API_KEY: Final[str] = '288467633cb6e715fc2c24b28a96e742'
+BASE_URL: Final[str] = 'https://api.openweathermap.org/data/2.5/forecast?'
+FONT: Final[str] = 'Calibri'
+TODAY_TEMP_FONT_SIZE: Final[int] = 50
+FEELS_LIKE_FONT_SIZE: Final[int] = 15
+REGULAR_FONT_SIZE: Final[int] = 20
+ANIMATION_SPEED: Final[int] = 50
+
+WEATHER_DATA: dict = {
     'Clear': {'main': '#FFF2D1', 'title': 0x00D1F2FF, 'text': '#bd6a1f', 'divider color': '#f2eddf',
               'path': 'animations/clear'},
     'Rain': {'main': '#3079FF', 'title': 0x00FF7930, 'text': '#c1e1ff', 'divider color': '#c1c1c1',
