@@ -4,60 +4,55 @@ except:
     pass
 
 import customtkinter as ctk
+
 from settings import *
-from components import reset_grid, TodayTemp, DateLocationLabel, WeatherAnimationCanvas, NextWeekForecast
+from components import TodayTemp, DateLocationLabel, WeatherAnimationCanvas, NextWeekForecast
+from utils import reset_grid_layout
 
 
 class WeatherAppView(ctk.CTk):
     def __init__(self):
         super().__init__()
+
         # Window setup
         self.geometry('550x250')
         self.minsize(550, 250)
         self.title('')
         self.configure(padx=10, pady=10)
         self.iconbitmap('images/empty.ico')
-        self.bind('<Configure>', self.decide_layout)
-        self.current_layout = None
 
-    def decide_layout(self, event):
-        window_width = self.winfo_width()
-        window_height = self.winfo_height()
+        self.bind('<Configure>', self.layout_manager)
+        self.layout_functions = {
+            'Normal mode': self.normal_layout,
+            'vertical on bottom': self.vertical_on_bottom_layout,
+            'vertical on the right side': self.vertical_on_right_layout,
+            'horizontal on the right': self.horizontal_on_right_layout
+        }
+
+        self.active_layout = None
+
+    def layout_manager(self, event) -> None:
+        window_width: int = self.winfo_width()
+        window_height: int = self.winfo_height()
         # print(window_width, window_height)
+        current_mode: str | None = None
 
-        if window_width < 1000:
-            if window_height < 600:
-                mode = 'Normal mode'
-                if self.current_layout != mode:
-                    self.current_layout = mode
-                    self.normal_layout()
-                    print('Normal mode')
-                    # print(window_width, window_height)
-            else:
-                mode = 'vertical on bottom'
-                if self.current_layout != mode:
-                    self.current_layout = mode
-                    print('vertical on bottom')
-                    self.vertical_on_bottom_layout()
-                    # print(window_width, window_height)
+        if window_width < 1000 and window_height < 600:
+            current_mode: str = 'Normal mode'
+        elif window_width < 1000 and window_height >= 600:
+            current_mode: str = 'vertical on bottom'
+        elif window_width >= 1000 and window_height < 600:
+            current_mode: str = 'vertical on the right side'
+        elif window_width >= 1000 and window_height >= 600:
+            current_mode: str = 'horizontal on the right'
 
-        else:
-            if window_height < 600:
-                mode = 'vertical on the right side'
-                if self.current_layout != mode:
-                    self.current_layout = mode
-                    print('vertical on the right side')
-                    self.vertical_on_right_layout()
-
-            else:
-                mode = 'horizontal on the right'
-                if self.current_layout != mode:
-                    self.current_layout = mode
-                    print('horizontal on the right')
-                    self.horizontal_on_right()
+        if self.active_layout != current_mode:
+            # print(current_mode)
+            self.active_layout: str = current_mode
+            self.layout_functions[current_mode]()
 
     def normal_layout(self):
-        reset_grid(self)
+        reset_grid_layout(self)
 
         self.rowconfigure(0, weight=6, uniform='a')
         self.rowconfigure(1, weight=1, uniform='a')
@@ -69,7 +64,7 @@ class WeatherAppView(ctk.CTk):
         self.weather_animation_canvas.set_layout('normal')
 
     def vertical_on_bottom_layout(self):
-        reset_grid(self)
+        reset_grid_layout(self)
 
         self.rowconfigure(0, weight=18, uniform='a')
         self.rowconfigure(1, weight=28, uniform='a')
@@ -83,8 +78,8 @@ class WeatherAppView(ctk.CTk):
         self.next_week_forecast.set_layout('bottom_vertical')
         # ctk.CTkLabel(self, fg_color='red').grid(row=3, column=0, sticky='news')
 
-    def horizontal_on_right(self):
-        reset_grid(self)
+    def horizontal_on_right_layout(self):
+        reset_grid_layout(self)
         self.rowconfigure((0, 1, 2, 3), weight=1, uniform='a')
         self.columnconfigure((0, 1), weight=1, uniform='b')
 
@@ -94,7 +89,7 @@ class WeatherAppView(ctk.CTk):
         self.today_temp.set_layout('horizontal on the right')
 
     def vertical_on_right_layout(self):
-        reset_grid(self)
+        reset_grid_layout(self)
 
         self.rowconfigure(0, weight=6, uniform='a')
         self.rowconfigure(1, weight=1, uniform='a')
@@ -110,7 +105,7 @@ class WeatherAppView(ctk.CTk):
         self.today_temp.set_layout('vertical on the right')
         self.weather_animation_canvas.set_layout('vertical on the right')
 
-    def change_titlebar_color(self, weather_condition) -> None:
+    def change_titlebar_color(self, weather_condition: str) -> None:
         try:
             HWND = windll.user32.GetParent(self.winfo_id())
             DWMWA_ATTRIBUTE = 35

@@ -1,20 +1,11 @@
-import customtkinter as ctk
-from settings import *
-from PIL import Image, ImageTk
 from itertools import cycle
 import time
 
+import customtkinter as ctk
+from PIL import Image, ImageTk
 
-def reset_grid(container):
-    # Remove all widgets from the grid
-    for widget in container.winfo_children():
-        widget.grid_forget()
-
-    # Reset row and column configurations
-    for i in range(container.grid_size()[1]):  # Number of rows
-        container.grid_rowconfigure(i, weight=0, uniform='')
-    for j in range(container.grid_size()[0]):  # Number of columns
-        container.grid_columnconfigure(j, weight=0, uniform='')
+from settings import *
+from utils import reset_grid_layout
 
 
 class TodayTemp(ctk.CTkFrame):
@@ -67,7 +58,7 @@ class DateLocationLabel(ctk.CTkFrame):
         self.create_widgets()
 
     def set_layout(self, layout):
-        reset_grid(self)
+        reset_grid_layout(self)
 
         if layout == 'normal' or layout == 'vertical on the right':
             self.grid(row=1, column=0, columnspan=2, sticky='sew')
@@ -205,7 +196,7 @@ class NextWeekForecast(ctk.CTkFrame):
         super().__init__(master=parent, fg_color='white', corner_radius=20)
 
     def set_layout(self, layout):
-        reset_grid(self)
+        reset_grid_layout(self)
         if layout == 'bottom_vertical':
             self.grid(row=3, column=0, sticky='news')
             self.rowconfigure(0, weight=1)
