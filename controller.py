@@ -5,8 +5,8 @@ from settings import *
 
 class WeatherAppController:
     def __init__(self, *, city=None, country=None, lat=None, long=None, unit='metric'):
-        self.view = WeatherAppView()
         self.model = WeatherAppModel(city, country, lat, long, unit)
+        self.view = WeatherAppView()
         self.config_colors()
         self.create_widgets()
         self.view.mainloop()
@@ -27,5 +27,5 @@ class WeatherAppController:
         self.view.create_weather_animation_canvas(self.model.animation_img_list,
                                                   WEATHER_DATA[self.model.current_condition]['main'])
         self.view.create_forecast_object(forecast_data=self.model.next_days_data,
-                                         forecast_img_list=self.model.forecast_img,
+                                         forecast_img_list=self.model.forecast_img_list,
                                          seperator_color=WEATHER_DATA[self.model.current_condition]['divider color'])
