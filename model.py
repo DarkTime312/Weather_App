@@ -1,12 +1,16 @@
-import urllib.request
-import json
-import requests
-from weather_data import _get_geo_info, get_weather_data
+from utils import _get_geo_info, get_weather_data, LocationData
 from PIL import Image
 import os
 from settings import WEATHER_DATA
+
+
 class WeatherAppModel:
     def __init__(self, city, country, lat, long, unit):
+        self.city = city
+        self.country = country
+        self.latitude = lat
+        self.longitude = long
+        self.unit = unit
         self.forecast_img = None
         self.animation_img_list = None
         self.current_condition = None
@@ -14,46 +18,56 @@ class WeatherAppModel:
         self.next_days_data = None
         self.feels_like = None
         self.current_temp = None
-        self.city = city
-        self.country = country
-        self.latitude = lat
-        self.longitude = long
-        self.unit = unit
         self.current_forecast = None
         self.next_5_day_forecast = None
-        self.check_data()
+
+        self.update_geo_info()
         self.get_weather_info()
         self.process_today_data()
         self.process_next_5_days()
         self.import_images()
 
-    def check_data(self):
-        # If user did not provide any location, find the location based on ip
-        variables = (self.city, self.country, self.longitude, self.latitude)
-        # If user provided all the parameters, use them
-        if all(variables):
-            return
-        # If none of the parameters are provided, use the ip
-        if not any(variables):
-            print('current loc')
-            with urllib.request.urlopen("https://ipapi.co/json/") as url:
-                data = json.loads(url.read().decode())
-                self.city = data['city']
-                self.country = data['country_name']
-                self.latitude = data['latitude']
-                self.longitude = data['longitude']
-        # If user at least provided city name
-        elif self.city:
-            city_info = _get_geo_info(self.city)
+    def update_geo_info(self) -> None:
+        """
+        Update the geographical information of the object.
+
+        This function updates the object's city, country, latitude, and longitude
+        attributes based on the provided information or by fetching data using external APIs.
+        """
+        def fetch_geo_info() -> LocationData | None:
+            """
+            Fetch geographical information based on the provided attributes or IP address.
+
+            :return: LocationData named tuple containing city, country, latitude, and longitude.
+            :raises Exception: If insufficient information is provided.
+            """
+            if all(user_provided_info):
+                return None  # All necessary information is already provided.
+            elif not any(user_provided_info):
+                return _get_geo_info()  # Fetch based on IP address.
+            elif self.city:
+                return _get_geo_info(self.city)  # Fetch based on city name.
+            elif self.latitude and self.longitude:
+                return _get_geo_info(latitude=self.latitude, longitude=self.longitude)  # Fetch based on coordinates.
+            else:
+                raise Exception('Provide either no information to use IP location, '
+                                'or at least city name or the coordinates.')
+
+        # Check if the user has provided any location information
+        user_provided_info = (self.city, self.country, self.longitude, self.latitude)
+
+        # Fetch geographical information if necessary
+        city_info = fetch_geo_info()
+
+        # Update the object's attributes with the fetched information
+        if city_info:
             self.city = city_info.city_name
             self.country = city_info.country_name
             self.latitude = city_info.latitude
             self.longitude = city_info.longitude
-        else:
-            raise Exception('Either pass nothing to use the ip location,'
-                            ' or pass city name to get the info from web,'
-                            ' or pass all the parameters')
-        print(self.city, self.country, self.latitude, self.longitude)
+
+        # Uncomment the following line if you need to debug the updated information
+        # print(self.city, self.country, self.latitude, self.longitude)
 
     def get_weather_info(self):
         data = get_weather_data(latitude=self.latitude,
