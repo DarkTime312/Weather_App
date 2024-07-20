@@ -21,21 +21,12 @@ class TodayTemp(ctk.CTkFrame):
         self.create_widgets()
 
     def set_layout(self, layout):
-        if layout == 'normal':
+        if layout in {'normal', 'vertical on the right'}:
             self.grid(row=0, column=0)
-
-            self.columnconfigure(0, weight=1)
-            self.rowconfigure(0, weight=2)
-            self.rowconfigure(1, weight=1)
-
-            self.temp_date.grid(row=0, column=0, sticky='news')
-            self.feels_label.grid(row=1, column=0, sticky='news')
         elif layout == 'bottom_vertical':
             self.grid(row=2, column=0)
         elif layout == 'horizontal on the right':
             self.grid(row=3, column=0, sticky='n')
-        elif layout == 'vertical on the right':
-            self.grid(row=0, column=0)
 
     def create_widgets(self):
         self.temp_date = ctk.CTkLabel(self,
@@ -48,6 +39,13 @@ class TodayTemp(ctk.CTkFrame):
                                         text_color=self.text_color,
                                         font=(FONT, SMALL_FONT_SIZE)
                                         )
+
+        self.columnconfigure(0, weight=1)
+        self.rowconfigure(0, weight=2)
+        self.rowconfigure(1, weight=1)
+
+        self.temp_date.grid(row=0, column=0, sticky='news')
+        self.feels_label.grid(row=1, column=0, sticky='news')
 
 
 class DateLocationLabel(ctk.CTkFrame):
@@ -68,7 +66,7 @@ class DateLocationLabel(ctk.CTkFrame):
     def set_layout(self, layout):
         reset_grid_layout(self)
 
-        if layout == 'normal' or layout == 'vertical on the right':
+        if layout in {'normal', 'vertical on the right'}:
             self.grid(row=1, column=0, columnspan=2, sticky='sew')
 
             self.rowconfigure(0, weight=1)
@@ -78,7 +76,7 @@ class DateLocationLabel(ctk.CTkFrame):
             self.address_frame.grid(row=0, column=0, sticky='news')
             self.today_date_label.grid(row=0, column=1, sticky='e', padx=5)
 
-        elif layout == 'bottom_vertical' or layout == 'horizontal on the right':
+        elif layout in {'bottom_vertical', 'horizontal on the right'}:
             self.grid(row=0, column=0, sticky='news')
 
             self.rowconfigure(0, weight=1)
@@ -86,7 +84,7 @@ class DateLocationLabel(ctk.CTkFrame):
             self.columnconfigure(0, weight=1)
 
             self.address_frame.grid(row=0, column=0, sticky='s')
-            self.today_date_label.grid(row=1, column=0, sticky='n', padx=5)
+            self.today_date_label.grid(row=1, column=0, sticky='n')
 
     def create_widgets(self):
         self.address_frame = ctk.CTkFrame(self, fg_color='transparent')
@@ -244,13 +242,13 @@ class NextWeekForecast(ctk.CTkFrame):
         if layout == 'bottom_vertical' or layout == 'vertical on the right':
             for i in range(self.number_of_needed_row_or_columns):
                 if i % 2 == 0:
-                    (day_text, temp_text, weather_condition), img = next(data)
+                    (day_text, temp_text, _), img = next(data)
                     frm = ctk.CTkFrame(self, fg_color='transparent')
                     frm.grid(row=0, column=i, sticky='news')
-                    ForecastCanvas(frm, img).pack(side='top', fill='both', anchor='center')
-                    ctk.CTkLabel(frm, text=temp_text, font=(FONT, REGULAR_FONT_SIZE)).pack(side='top', expand=True,
+                    ForecastCanvas(frm, img).pack(fill='both')
+                    ctk.CTkLabel(frm, text=temp_text, font=(FONT, REGULAR_FONT_SIZE)).pack(expand=True,
                                                                                            fill='x')
-                    ctk.CTkLabel(frm, text=day_text[:3], font=(FONT, SMALL_FONT_SIZE)).pack(side='bottom', expand=True,
+                    ctk.CTkLabel(frm, text=day_text[:3], font=(FONT, SMALL_FONT_SIZE)).pack(expand=True,
                                                                                             fill='x')
                 else:
                     separator = ctk.CTkFrame(self, fg_color=self.seperator_color, width=3)
@@ -258,7 +256,7 @@ class NextWeekForecast(ctk.CTkFrame):
         elif layout == 'horizontal on the right':
             for i in range(self.number_of_needed_row_or_columns):
                 if i % 2 == 0:
-                    (day_text, temp_text, weather_condition), img = next(data)
+                    (day_text, temp_text, _), img = next(data)
                     frm = ctk.CTkFrame(self, fg_color='transparent')
                     frm.grid(row=i, column=0, sticky='news')
                     ForecastCanvas(frm, img).pack(side='right', fill='both', padx=5)
