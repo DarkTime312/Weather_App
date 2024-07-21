@@ -148,13 +148,13 @@ class WeatherAnimationCanvas(ctk.CTkCanvas):
         # If at least 300 milliseconds is passed since the last resize action
         # Assume user is done resizing the window, so we can start the animation
         # Otherwise just keep checking
-        if time.time() - self.last_resize_time > 0.3:
+        if time.time() - self.last_resize_time > ANIMATION_PAUSE_TIME:
             self.last_resize_time = None
             self.check_scheduled = False
             self.start_animation()
         else:
             # Check again in 100 milliseconds
-            self.after(100, self.check_resume)
+            self.after(50, self.check_resume)
 
     def start_animation(self):
         # Get the new window dimensions

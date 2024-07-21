@@ -7,7 +7,7 @@ TODAY_TEMP_FONT_SIZE: Final[int] = 50
 SMALL_FONT_SIZE: Final[int] = 15
 REGULAR_FONT_SIZE: Final[int] = 20
 ANIMATION_SPEED: Final[int] = 50
-
+ANIMATION_PAUSE_TIME: Final[float] = 0.1
 
 WEATHER_DATA: dict = {
     'Clear': {'main': '#FFF2D1', 'title': 0x00D1F2FF, 'text': '#bd6a1f', 'divider color': '#f2eddf',

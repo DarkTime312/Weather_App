@@ -11,7 +11,12 @@ class WeatherAppController:
         self.create_widgets()
         self.view.mainloop()
 
-    def config_colors(self):
+    def config_colors(self) -> None:
+        """
+        Change the color of title bar and window background.
+
+        :return: None
+        """
         self.view.change_titlebar_color(self.model.current_condition)
         self.view.configure(fg_color=WEATHER_DATA[self.model.current_condition]['main'])
 
