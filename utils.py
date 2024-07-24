@@ -131,7 +131,7 @@ def _get_geo_info(city_name: str | None = None,
             raise Exception(f"Error: Unable to fetch data (status code: {response.status_code})")
         return response.json()
 
-    if latitude and latitude:
+    if latitude is not None and latitude is not None:
         url: str = f"https://nominatim.openstreetmap.org/reverse?format=json&lat={latitude}&lon={longitude}&zoom=10&addressdetails=1&accept-language=en"
         data: dict = _fetch_data(url)
         address: dict = data.get('address', {})

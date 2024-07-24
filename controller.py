@@ -15,10 +15,14 @@ class WeatherAppController:
         """
         Change the color of title bar and window background.
 
+        This function will get the current weather condition from model
+        And based on that will change the app colors.
+
         :return: None
         """
-        self.view.change_titlebar_color(self.model.current_condition)
-        self.view.configure(fg_color=WEATHER_DATA[self.model.current_condition]['main'])
+        color: dict = WEATHER_DATA[self.model.current_condition]
+        self.view.change_titlebar_color(color['title'])
+        self.view.configure(fg_color=color['main'])
 
     def create_widgets(self):
         self.view.create_today_temp(self.model.current_temp,

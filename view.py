@@ -2,10 +2,11 @@ try:
     from ctypes import windll, byref, sizeof, c_int
 except:
     pass
+from typing import Callable
 
 import customtkinter as ctk
 
-from settings import *
+# from settings import *
 from components import TodayTemp, DateLocationLabel, WeatherAnimationCanvas, NextWeekForecast
 from utils import reset_grid_layout
 
@@ -22,7 +23,7 @@ class WeatherAppView(ctk.CTk):
         self.iconbitmap('images/empty.ico')
 
         self.bind('<Configure>', self.layout_manager)
-        self.layout_functions = {
+        self.layout_functions: dict[str, Callable] = {
             'Normal mode': self.normal_layout,
             'vertical on bottom': self.vertical_on_bottom_layout,
             'vertical on the right side': self.vertical_on_right_layout,
@@ -99,11 +100,11 @@ class WeatherAppView(ctk.CTk):
 
         self.apply_layout('vertical on the right')
 
-    def change_titlebar_color(self, weather_condition: str) -> None:
+    def change_titlebar_color(self, color: str) -> None:
         try:
             HWND = windll.user32.GetParent(self.winfo_id())
             DWMWA_ATTRIBUTE = 35
-            COLOR = WEATHER_DATA[weather_condition]['title']
+            COLOR = color
             windll.dwmapi.DwmSetWindowAttribute(HWND, DWMWA_ATTRIBUTE, byref(c_int(COLOR)), sizeof(c_int))
         except:
             pass
