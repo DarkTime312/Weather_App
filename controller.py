@@ -9,6 +9,7 @@ class WeatherAppController:
         self.view = WeatherAppView()
         self.config_colors()
         self.create_widgets()
+        # Start the GUI
         self.view.mainloop()
 
     def config_colors(self) -> None:
@@ -24,7 +25,13 @@ class WeatherAppController:
         self.view.change_titlebar_color(color['title'])
         self.view.configure(fg_color=color['main'])
 
-    def create_widgets(self):
+    def create_widgets(self) -> None:
+        """
+        Get the data from model and pass them to the view to create
+        the widgets.
+
+        :return: None
+        """
         self.view.create_today_temp(self.model.current_temp,
                                     self.model.feels_like,
                                     WEATHER_DATA[self.model.current_condition]['text']

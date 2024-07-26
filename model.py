@@ -62,7 +62,7 @@ class WeatherAppModel:
                 return _get_geo_info()  # Fetch based on IP address.
             elif self.city:
                 return _get_geo_info(self.city)  # Fetch based on city name.
-            elif self.latitude and self.longitude:
+            elif self.latitude is not None and self.longitude is not None:
                 return _get_geo_info(latitude=self.latitude, longitude=self.longitude)  # Fetch based on coordinates.
             else:
                 raise Exception('Provide either no information to use IP location, '

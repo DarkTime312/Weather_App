@@ -6,7 +6,6 @@ from typing import Callable
 
 import customtkinter as ctk
 
-# from settings import *
 from components import TodayTemp, DateLocationLabel, WeatherAnimationCanvas, NextWeekForecast
 from utils import reset_grid_layout
 
@@ -23,19 +22,28 @@ class WeatherAppView(ctk.CTk):
         self.iconbitmap('images/empty.ico')
 
         self.bind('<Configure>', self.layout_manager)
+        self.next_week_forecast = None
+        self.weather_animation_canvas = None
+        self.date_location_label = None
+        self.today_temp = None
+        self.active_layout = None
         self.layout_functions: dict[str, Callable] = {
             'Normal mode': self.normal_layout,
             'vertical on bottom': self.vertical_on_bottom_layout,
             'vertical on the right side': self.vertical_on_right_layout,
             'horizontal on the right': self.horizontal_on_right_layout
         }
-        self.next_week_forecast = None
-        self.weather_animation_canvas = None
-        self.date_location_label = None
-        self.today_temp = None
-        self.active_layout = None
 
     def layout_manager(self, event) -> None:
+        """
+        Keep an eye on the window resizes and decide which layout the app
+        should be using based on current size.
+
+        It will run the relevant layout function based on the instruction.
+
+        :param event: [Not used] It's necessary for event binding to work.
+        :return: None
+        """
         window_width: int = self.winfo_width()
         window_height: int = self.winfo_height()
         # print(window_width, window_height)
@@ -50,22 +58,35 @@ class WeatherAppView(ctk.CTk):
         elif window_width >= 1000 and window_height >= 600:
             current_mode: str = 'horizontal on the right'
 
+        # Only run the layout function if the mode is changed.
         if self.active_layout != current_mode:
             # print(current_mode)
             self.active_layout: str = current_mode
+            # Reset the grid layout from previous mode
             reset_grid_layout(self)
             self.layout_functions[current_mode]()
 
     def apply_layout(self, layout: str) -> None:
-        view_objects = (self.today_temp,
-                        self.date_location_label,
-                        self.weather_animation_canvas,
-                        self.next_week_forecast)
+        """
+        Apply the selected layout to the all our widgets.
+
+        :param layout: Selected layout passed as a string
+        :return: None
+        """
+        view_objects: tuple = (self.today_temp,
+                               self.date_location_label,
+                               self.weather_animation_canvas,
+                               self.next_week_forecast)
 
         for obj in view_objects:
             obj.set_layout(layout)
 
     def normal_layout(self) -> None:
+        """
+        Set up the grid layout for normal mode.
+
+        :return: None
+        """
 
         self.rowconfigure(0, weight=6, uniform='a')
         self.rowconfigure(1, weight=1, uniform='a')
@@ -74,7 +95,13 @@ class WeatherAppView(ctk.CTk):
 
         self.apply_layout('normal')
 
-    def vertical_on_bottom_layout(self):
+    def vertical_on_bottom_layout(self) -> None:
+        """
+        Set up the grid layout for mode with vertical forecast widgets
+        at the bottom.
+
+        :return: None
+        """
 
         self.rowconfigure(0, weight=18, uniform='a')
         self.rowconfigure(1, weight=28, uniform='a')
@@ -84,13 +111,26 @@ class WeatherAppView(ctk.CTk):
 
         self.apply_layout('bottom_vertical')
 
-    def horizontal_on_right_layout(self):
+    def horizontal_on_right_layout(self) -> None:
+        """
+        Set up the grid layout for mode with horizontal forecast widgets
+        on the right.
+
+        :return: None
+        """
+
         self.rowconfigure((0, 1, 2, 3), weight=1, uniform='a')
         self.columnconfigure((0, 1), weight=1, uniform='b')
 
         self.apply_layout('horizontal on the right')
 
-    def vertical_on_right_layout(self):
+    def vertical_on_right_layout(self) -> None:
+        """
+        Set up the grid layout for mode with vertical forecast widgets
+        on the right.
+
+        :return: None
+        """
         self.rowconfigure(0, weight=6, uniform='a')
         self.rowconfigure(1, weight=1, uniform='a')
 
@@ -101,6 +141,12 @@ class WeatherAppView(ctk.CTk):
         self.apply_layout('vertical on the right')
 
     def change_titlebar_color(self, color: str) -> None:
+        """
+        Changes the color of title bar.
+
+        :param color: Selected color passed as string
+        :return: None
+        """
         try:
             HWND = windll.user32.GetParent(self.winfo_id())
             DWMWA_ATTRIBUTE = 35
